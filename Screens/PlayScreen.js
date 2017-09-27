@@ -5,17 +5,31 @@ import {
     Text,
     View
 } from 'react-native';
+import { Answer } from '../Views';
 
 export default class PlayScreen extends Component {
+
+    constructor(props) {
+        super(props);
+
+        let word = props.navigation.state.params.word;
+        let splitWord = word.split('');
+        let visibleWord = new Array(splitWord.length).fill(false);
+
+        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord};
+    }
+
     static navigationOptions = {
         title: 'Play!',
     };
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
-                    Welcome to React Native!
-        </Text>
+                    Welcome to {this.state.word}!
+                </Text>
+                <Answer splitWord={this.state.splitWord} visibleWord={this.state.visibleWord}/>
             </View>
         );
     }

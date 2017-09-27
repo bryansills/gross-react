@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import {
     AppRegistry,
-    Button,
     StyleSheet,
     Text,
     View
 } from 'react-native';
 
-export default class ChooseScreen extends Component {
-    static navigationOptions = {
-        title: 'Choose A Word',
-    };
+export default class Answer extends Component {
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
-                    Welcome to React Native!
+                    {this.props.splitWord[0] + this.props.visibleWord[0]}
                 </Text>
-                <Button 
-                    onPress={() => navigate('Play', {word: 'BLARG'})}
-                    title="Let's Play!" />
             </View>
         );
     }
