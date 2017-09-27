@@ -6,9 +6,9 @@ import {
     View
 } from 'react-native';
 
-export default class ChooseScreen extends Component {
+export default class PlayScreen extends Component {
     static navigationOptions = {
-        title: 'Choose A Word',
+        title: 'Play!',
     };
     render() {
         return (

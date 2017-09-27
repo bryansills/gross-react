@@ -1,4 +1,14 @@
 import { AppRegistry } from 'react-native';
-import { ChooseScreen } from './Screens';
+import { StackNavigator } from 'react-navigation';
+import { ChooseScreen, PlayScreen } from './Screens';
 
-AppRegistry.registerComponent('hangman', () => ChooseScreen);
+const Navigation = StackNavigator({
+  Choose: {
+    screen: ChooseScreen
+  },
+  Play: {
+    screen: PlayScreen
+  },
+});
+
+AppRegistry.registerComponent('hangman', () => Navigation);
