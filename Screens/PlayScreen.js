@@ -6,7 +6,7 @@ import {
     Text,
     View
 } from 'react-native';
-import { Answer } from '../Views';
+import { Answer, Keyboard } from '../Views';
 
 export default class PlayScreen extends Component {
 
@@ -17,8 +17,9 @@ export default class PlayScreen extends Component {
         const splitWord = word.split('');
         let visibleWord = new Array(splitWord.length).fill(false);
         let count = 0;
+        let usedLetters = [];
 
-        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord, count: count};
+        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord, count: count, usedLetters: usedLetters};
     }
 
     static navigationOptions = {
@@ -30,6 +31,7 @@ export default class PlayScreen extends Component {
             <View style={styles.container}>
                 <Answer splitWord={this.state.splitWord} visibleWord={this.state.visibleWord}/>
                 <Button onPress={this.updateVisible} title='REVEAL!' />
+                <Keyboard usedLetters={this.state.usedLetters} onLetterPress={this.letterPressed}/>
             </View>
         );
     }
@@ -39,6 +41,17 @@ export default class PlayScreen extends Component {
             let newState = {...prevState};            
             newState.visibleWord[newState.count] = true;
             newState.count++;
+
+            return newState;
+        });
+    };
+
+    letterPressed = (letter) => {
+        console.log(letter);
+
+        this.setState((prevState) => {
+            let newState = {...prevState};
+            newState.usedLetters.push(letter);
 
             return newState;
         });
