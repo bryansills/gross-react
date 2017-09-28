@@ -28,9 +28,6 @@ export default class PlayScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to {this.state.word}!
-                </Text>
                 <Answer splitWord={this.state.splitWord} visibleWord={this.state.visibleWord}/>
                 <Button onPress={this.updateVisible} title='REVEAL!' />
             </View>
@@ -54,10 +51,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
     }
 });
