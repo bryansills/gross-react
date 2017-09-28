@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     AppRegistry,
-    Button,
     StyleSheet,
     Text,
     View
@@ -15,11 +14,10 @@ export default class PlayScreen extends Component {
 
         const word = props.navigation.state.params.word;
         const splitWord = word.split('');
-        let visibleWord = new Array(splitWord.length).fill(false);
         let count = 0;
         let usedLetters = [];
 
-        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord, count: count, usedLetters: usedLetters};
+        this.state = {word: word, splitWord: splitWord, count: count, usedLetters: usedLetters};
     }
 
     static navigationOptions = {
@@ -29,8 +27,7 @@ export default class PlayScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Answer splitWord={this.state.splitWord} visibleWord={this.state.visibleWord}/>
-                <Button onPress={this.updateVisible} title='REVEAL!' />
+                <Answer splitWord={this.state.splitWord} usedLetters={this.state.usedLetters}/>
                 <Keyboard usedLetters={this.state.usedLetters} onLetterPress={this.letterPressed}/>
             </View>
         );
@@ -47,8 +44,6 @@ export default class PlayScreen extends Component {
     };
 
     letterPressed = (letter) => {
-        console.log(letter);
-
         this.setState((prevState) => {
             let newState = {...prevState};
             newState.usedLetters.push(letter);

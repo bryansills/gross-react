@@ -7,16 +7,16 @@ import {
 import { VisibleLetter } from './';
 
 export default class Answer extends Component {
-    renderWord = (wordArr, visArr) => {
+    renderWord = (wordArr, usedLetters) => {
         return wordArr.map((char, ind) => {
-            return <VisibleLetter letter={char} visible={visArr[ind]} />
+            return <VisibleLetter letter={char} visible={usedLetters.includes(char)} />
         });
     };
 
     render() {
         return (
             <View style={styles.container}>
-                {this.renderWord(this.props.splitWord, this.props.visibleWord)}
+                {this.renderWord(this.props.splitWord, this.props.usedLetters)}
             </View>
         );
     }
