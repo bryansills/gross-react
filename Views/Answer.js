@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View
 } from 'react-native';
+import { VisibleLetter } from './';
 
 export default class Answer extends Component {
+    renderWord = (wordArr, visArr) => {
+        return wordArr.map((char, ind) => {
+            return <VisibleLetter letter={char} visible={visArr[ind]} />
+        });
+    };
+
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    {this.props.splitWord[0] + this.props.visibleWord[0]}
-                </Text>
+                {this.renderWord(this.props.splitWord, this.props.visibleWord)}
             </View>
         );
     }

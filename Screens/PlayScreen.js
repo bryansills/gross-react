@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     AppRegistry,
+    Button,
     StyleSheet,
     Text,
     View
@@ -12,11 +13,12 @@ export default class PlayScreen extends Component {
     constructor(props) {
         super(props);
 
-        let word = props.navigation.state.params.word;
-        let splitWord = word.split('');
+        const word = props.navigation.state.params.word;
+        const splitWord = word.split('');
         let visibleWord = new Array(splitWord.length).fill(false);
+        let count = 0;
 
-        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord};
+        this.state = {word: word, splitWord: splitWord, visibleWord: visibleWord, count: count};
     }
 
     static navigationOptions = {
@@ -30,9 +32,20 @@ export default class PlayScreen extends Component {
                     Welcome to {this.state.word}!
                 </Text>
                 <Answer splitWord={this.state.splitWord} visibleWord={this.state.visibleWord}/>
+                <Button onPress={this.updateVisible} title='REVEAL!' />
             </View>
         );
     }
+
+    updateVisible = () => {
+        this.setState((prevState) => {
+            let newState = {...prevState};            
+            newState.visibleWord[newState.count] = true;
+            newState.count++;
+
+            return newState;
+        });
+    };
 }
 
 const styles = StyleSheet.create({
