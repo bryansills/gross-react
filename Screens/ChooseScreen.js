@@ -19,7 +19,7 @@ export default class ChooseScreen extends Component {
                     Welcome to React Native!
                 </Text>
                 <Button 
-                    onPress={() => navigate('Play', {word: 'BLARG'})}
+                    onPress={() => navigate('Play', {word: 'BLARGGGGGG'})}
                     title="Let's Play!" />
             </View>
         );

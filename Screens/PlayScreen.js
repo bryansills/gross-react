@@ -16,8 +16,9 @@ export default class PlayScreen extends Component {
         const splitWord = word.split('');
         let count = 0;
         let usedLetters = [];
+        let attemptsLeft = 6;
 
-        this.state = {word: word, splitWord: splitWord, count: count, usedLetters: usedLetters};
+        this.state = {word: word, splitWord: splitWord, count: count, usedLetters: usedLetters, attemptsLeft: attemptsLeft};
     }
 
     static navigationOptions = {
@@ -27,6 +28,7 @@ export default class PlayScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text>{this.state.attemptsLeft}</Text>
                 <Answer splitWord={this.state.splitWord} usedLetters={this.state.usedLetters}/>
                 <Keyboard usedLetters={this.state.usedLetters} onLetterPress={this.letterPressed}/>
             </View>
@@ -47,6 +49,25 @@ export default class PlayScreen extends Component {
         this.setState((prevState) => {
             let newState = {...prevState};
             newState.usedLetters.push(letter);
+
+            if (newState.splitWord.includes(letter)) {
+                let solved = true;
+                newState.splitWord.map((char, ind) => {
+                    if (!newState.usedLetters.includes(char)) {
+                        solved = false;
+                    }
+                });
+    
+                if (solved) {
+                    console.log("solved");
+                }
+            } else {
+                newState.attemptsLeft--;
+
+                if (newState.attemptsLeft === 0) {
+                    console.log("fail");
+                }
+            }
 
             return newState;
         });
