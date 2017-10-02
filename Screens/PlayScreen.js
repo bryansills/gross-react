@@ -5,7 +5,7 @@ import {
     Text,
     View
 } from 'react-native';
-import { Answer, Keyboard } from '../Views';
+import { Answer, HangingMan, Keyboard } from '../Views';
 
 export default class PlayScreen extends Component {
 
@@ -18,7 +18,7 @@ export default class PlayScreen extends Component {
         let usedLetters = [];
         let attemptsLeft = 6;
 
-        this.state = {word: word, splitWord: splitWord, count: count, usedLetters: usedLetters, attemptsLeft: attemptsLeft};
+        this.state = { word: word, splitWord: splitWord, count: count, usedLetters: usedLetters, attemptsLeft: attemptsLeft };
     }
 
     static navigationOptions = {
@@ -28,16 +28,16 @@ export default class PlayScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.state.attemptsLeft}</Text>
-                <Answer splitWord={this.state.splitWord} usedLetters={this.state.usedLetters}/>
-                <Keyboard usedLetters={this.state.usedLetters} onLetterPress={this.letterPressed}/>
+                <HangingMan attemptsLeft={this.state.attemptsLeft} />
+                <Answer splitWord={this.state.splitWord} usedLetters={this.state.usedLetters} />
+                <Keyboard usedLetters={this.state.usedLetters} onLetterPress={this.letterPressed} />
             </View>
         );
     }
 
     updateVisible = () => {
         this.setState((prevState) => {
-            let newState = {...prevState};            
+            let newState = { ...prevState };
             newState.visibleWord[newState.count] = true;
             newState.count++;
 
@@ -47,7 +47,7 @@ export default class PlayScreen extends Component {
 
     letterPressed = (letter) => {
         this.setState((prevState) => {
-            let newState = {...prevState};
+            let newState = { ...prevState };
             newState.usedLetters.push(letter);
 
             if (newState.splitWord.includes(letter)) {
@@ -57,15 +57,15 @@ export default class PlayScreen extends Component {
                         solved = false;
                     }
                 });
-    
+
                 if (solved) {
-                    console.log("solved");
+                    newState.attemptsLeft = "You Won!";
                 }
             } else {
                 newState.attemptsLeft--;
 
                 if (newState.attemptsLeft === 0) {
-                    console.log("fail");
+                    newState.attemptsLeft = "You Lost!"
                 }
             }
 
